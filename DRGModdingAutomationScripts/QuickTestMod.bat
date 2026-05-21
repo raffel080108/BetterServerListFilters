@@ -21,5 +21,4 @@ del "%SteamInstall%\FSD\Mods\%ModName%\%ModName%.pak" /q
 echo copying over new mod pak
 move "%cd%\Temp\%ModName%.pak" "%SteamInstall%\FSD\Mods\%ModName%\"
 
-pause
-::start steam://rungameid/548430
+start steam://rungameid/548430
