@@ -1,0 +1,30 @@
+#pragma once
+#include "CoreMinimal.h"
+//CROSS-MODULE INCLUDE V2: -ModuleName=Engine -ObjectName=ActorComponent -FallbackName=ActorComponent
+#include "KeepInsideWorld.generated.h"
+
+class AActor;
+class UObject;
+
+UCLASS(Blueprintable, ClassGroup=Custom, meta=(BlueprintSpawnableComponent))
+class UKeepInsideWorld : public UActorComponent {
+    GENERATED_BODY()
+public:
+protected:
+    UPROPERTY(EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    TArray<TWeakObjectPtr<AActor>> ActorsToKeepInsideWorld;
+    
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Transient, meta=(AllowPrivateAccess=true))
+    int32 IteratorIndex;
+    
+public:
+    UKeepInsideWorld(const FObjectInitializer& ObjectInitializer);
+
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, meta=(WorldContext="WorldContextObject"))
+    static void UnregisterForKeepInsideWorld(UObject* WorldContextObject, const AActor*& Actor);
+    
+    UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, meta=(WorldContext="WorldContextObject"))
+    static void RegisterForKeepInsideWorld(UObject* WorldContextObject, const AActor*& Actor);
+    
+};
+
